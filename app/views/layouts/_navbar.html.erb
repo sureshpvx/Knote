@@ -1,0 +1,32 @@
+<!-- component -->
+<div class="bg-gray-100 font-sans w-full sticky top-0">
+  <div class="bg-white shadow border-b">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-4">
+        <div class="flex items-center">
+          <%= image_tag 'logo.svg', class: 'w-10 h-10 text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4' %>
+          <span class="text-gray-800 text-lg font-bold align-items-center">Notes</span>
+        </div>
+        <div class="hidden sm:flex sm:items-center">
+          <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Products</a>
+          <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Marketplace</a>
+          <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Partners</a>
+        </div>
+        <div class="hidden sm:flex sm:items-center">
+          <button type="button"
+                  data-action="click->modal#open"
+                  data-modal-id="authModal"
+                  class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+            Sign in
+          </button>
+          <button type="button"
+                  data-action="click->modal#open"
+                  data-modal-id="authModal"
+                  class="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">
+            Sign up
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
