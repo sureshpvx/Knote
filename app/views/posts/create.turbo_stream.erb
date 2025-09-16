@@ -1,0 +1,18 @@
+<%# 1. Add the new post to the list %>
+<%= turbo_stream.prepend "posts", @post %>
+
+<%# 2. Show the success message %>
+<%= turbo_stream.update "flash", partial: "shared/flash" %>
+
+<%# 3. (THE FIX) This script uses the official Stimulus API to find the controller and run its close() action %>
+<%= turbo_stream.replace "modal" do %>
+  <%= turbo_frame_tag "modal" do %>
+    <script>
+        const application = window.Stimulus;
+        const modalController = application.getControllerForElementAndIdentifier(document.body, "modal");
+        if (modalController) {
+            modalController.close();
+        }
+    </script>
+  <% end %>
+<% end %>
