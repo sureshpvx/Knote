@@ -29,7 +29,7 @@ class PostsController < ApplicationController
         flash.now[:notice] = "Note was successfully created."
 
         format.turbo_stream
-        format.html { redirect_to posts_url, notice: "Note was successfully created." }
+        format.html { redirect_to posts_url, notice: "#{@post.title} was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         # Handle turbo_stream failure if needed
@@ -40,11 +40,13 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: "#{@post.title} was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @post }
+        flash.now[:notice] = "#{@post.title} was successfully updated."
+
+        format.turbo_stream
+        format.html { redirect_to posts_url, notice: "Note was successfully created." }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
+        # Handle turbo_stream failure if needed
       end
     end
   end

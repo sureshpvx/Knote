@@ -1,36 +1,31 @@
+// app/javascript/controllers/modal_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["modal", "dialog"]
-
-    connect() {
-        // We only need the Escape key listener here now
-        this.boundCloseOnEscape = (e) => this.closeOnEscape(e)
-        document.addEventListener("keydown", this.boundCloseOnEscape)
-    }
-
-    disconnect() {
-        document.removeEventListener("keydown", this.boundCloseOnEscape)
-    }
+    // The this.element is the <div id="modal_container">
 
     open() {
-        this.modalTarget.classList.remove("hidden")
-        this.modalTarget.classList.remove("opacity-0")
-        this.dialogTarget.classList.remove("scale-95")
+        // Make the modal visible and start the fade-in transition
+        this.element.classList.remove("hidden");
+        requestAnimationFrame(() => this.element.classList.remove("opacity-0"));
     }
 
     close() {
-        this.modalTarget.classList.add("opacity-0")
-        this.dialogTarget.classList.add("scale-95")
+        // Start the fade-out transition
+        this.element.classList.add("opacity-0");
 
+        // After the transition ends, hide the modal and clear its content
         setTimeout(() => {
-            this.modalTarget.classList.add("hidden")
-        }, 300)
+            this.element.classList.add("hidden");
+            this.clearFrame();
+        }, 300); // This duration should match your CSS transition duration
     }
 
-    closeOnEscape(event) {
-        if (event.key === "Escape") {
-            this.close()
+    // Helper function to find and clear the turbo-frame
+    clearFrame() {
+        const frame = this.element.querySelector("turbo-frame");
+        if (frame) {
+            frame.innerHTML = "";
         }
     }
 }

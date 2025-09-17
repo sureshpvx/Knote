@@ -3,6 +3,4 @@
   <%= render "shared/flash" %>
 <% end %>
 <%= turbo_stream.remove "empty_posts" %>
-<%= turbo_stream.replace "modal" do %>
-  <%= turbo_frame_tag "modal" %>
-<% end %>
+<%= turbo_stream.replace "modal_container", partial: "shared/modal" %>
