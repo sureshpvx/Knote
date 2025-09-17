@@ -25,21 +25,22 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        # Set the flash message here so it's available for the turbo_stream format
-        flash[:notice] = "Note was successfully created."
+        # This line is crucial for the flash message to work
+        flash.now[:notice] = "Note was successfully created."
 
-        format.html { redirect_to @post, notice: "Post was successfully created." }
         format.turbo_stream
+        format.html { redirect_to posts_url, notice: "Note was successfully created." }
       else
+        format.html { render :new, status: :unprocessable_entity }
+        # Handle turbo_stream failure if needed
       end
     end
   end
-
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: "Post was successfully updated.", status: :see_other }
+        format.html { redirect_to @post, notice: "#{@post.title} was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +54,7 @@ class PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to posts_path, notice: "Post was successfully destroyed.", status: :see_other }
+      format.html { redirect_to posts_path, alert: "#{@post.title} was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
