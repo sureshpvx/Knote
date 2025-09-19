@@ -1,5 +1,3 @@
-# render.yaml - Please use this exact version
-
 services:
   - name: knote-database
     type: psql
