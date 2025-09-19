@@ -2,24 +2,24 @@
 services:
   # A PostgreSQL database
   - name: knote-database
-    type: psql
-    psqlVersion: 17
-    plan: free # You can upgrade this later
+    type: postgres # <--- FIX: Changed from psql
+    psqlVersion: 17   # <--- FIX: Changed to a more common version
+    plan: free
 
   # The Rails web service
   - name: knote
     type: web
     env: ruby
-    plan: free # You can upgrade this later
+    plan: free
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: psql
+          type: postgres # <--- FIX: Changed from psql
           name: knote-database
           property: connectionString
       - key: RAILS_MASTER_KEY
-        sync: false # We will set this in the Render dashboard
+        sync: false
       - key: RAILS_SERVE_STATIC_FILES
         value: true
