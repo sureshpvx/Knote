@@ -1,5 +1,5 @@
 <!-- component -->
-<div class="bg-gray-100 font-sans w-full sticky top-0">
+<div id="nav" class="bg-gray-100 font-sans w-full sticky top-0 z-3">
   <div class="bg-white shadow border-b">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between py-4">
@@ -14,15 +14,24 @@
           <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Marketplace</a>
           <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Partners</a>
         </div>
-        <div class="hidden sm:flex sm:items-center">
-          <%= link_to "#", data: { turbo_frame: "modal" }, class: "text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4" do %>
+        <% if current_user.present? %>
+          <div class="hidden sm:flex sm:items-center">
+            <span class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Hello, <%= current_user.email %></span>
+            <%= button_to destroy_user_session_path, method: :delete, class: "text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600" do %>
+              Sign out
+            <% end %>
+          </div>
+        <% else %>
+          <div class="hidden sm:flex sm:items-center">
+          <%= link_to new_user_session_path, data: { turbo_frame: "modal" }, class: "text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4" do %>
             Sign in
           <% end %>
-           <%= link_to "#", data: { turbo_frame: "modal" },
+           <%= link_to new_user_registration_path, data: { turbo_frame: "modal" },
                   class: "text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600" do %>
             Sign up
            <% end %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>

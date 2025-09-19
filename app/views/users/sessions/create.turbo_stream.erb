@@ -1,0 +1,13 @@
+<%# app/views/users/registrations/create.turbo_stream.erb %>
+
+<%# 1. Show the success flash message %>
+<%= turbo_stream.prepend "flash" do %>
+  <%= render "shared/flash" %>
+<% end %>
+
+<%# 2. Close the modal by replacing it with a fresh, empty one %>
+<%= turbo_stream.replace "nav", partial: "layouts/navbar" %>
+
+<%= turbo_stream.replace "modal_container", partial: "shared/modal" %>
+
+

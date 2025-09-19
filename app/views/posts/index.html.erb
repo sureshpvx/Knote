@@ -1,11 +1,9 @@
 <% content_for :title, "Posts" %>
 
 <div class="w-full">
-  <div id="posts" class="mt-10 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div id="posts" class="mt-10 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     <% if @posts.any? %>
-      <% @posts.each do |post| %>
-          <%= render post %>
-      <% end %>
+      <%= render @posts %>
     <% else %>
   </div>
     <div id="empty_posts" class="w-full min-h-screen">
